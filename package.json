@@ -12,7 +12,11 @@
   },
   "keywords": [
     "graphviz",
-    "amazon state language"
+    "amazon state language",
+    "state machine",
+    "dot",
+    "visualize",
+    "visualizer"
   ],
   "repository": {
     "type": "git",
