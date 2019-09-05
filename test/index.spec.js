@@ -21,7 +21,20 @@ test('basic', async t => {
 
 test.skip('parallel', async t => {
     const expected = [
-        'digraph { node [shape=record]; a -> b; subgraph b { b1a -> b1b; b2a -> b2b; } b -> c; }'
+`digraph {
+    compound=true;
+    subgraph cluster_b1 {
+        b1a -> b1b;
+    }
+    subgraph cluster_b2 {
+        b2a -> b2b;
+    }
+    a -> b;
+    b -> b1a [lhead=cluster_b1];
+    b -> b2a [lhead=cluster_b2];
+    b1b -> c [ltail=cluster_b1];
+    b2b -> c [ltail=cluster_b2];
+}`
     ];
     t.plan(expected.length);
     let i = 0;

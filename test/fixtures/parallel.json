@@ -10,10 +10,10 @@
                 {
                     "StartAt": "b1a",
                     "States": {
-                        "b1-a": {
+                        "b1a": {
                             "Next": "b1b"
                         },
-                        "b1-b": {
+                        "b1b": {
                             "End": true
                         }
                     }
@@ -21,10 +21,10 @@
                 {
                     "StartAt": "b2a",
                     "States": {
-                        "b2-a": {
+                        "b2a": {
                             "Next": "b2b"
                         },
-                        "b2-b": {
+                        "b2b": {
                             "End": true
                         }
                     }
