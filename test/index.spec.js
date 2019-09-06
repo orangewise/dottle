@@ -40,14 +40,11 @@ test('parallel', async t => {
 
     ${digraphStyles}
 
-    start [shape=circle fillcolor="#ffda75" style="dashed,filled"];
-    end [shape=circle fillcolor="#ffda75" style="dashed,filled"];
-
     start -> a;
 
     subgraph cluster_b {
 
-        color=grey; style="dashed,rounded";
+        ${subgraphStyles}
 
         b1a -> b1b;
         b2a -> b2b;
