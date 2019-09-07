@@ -11,6 +11,34 @@
                     "StartAt": "b1a",
                     "States": {
                         "b1a": {
+                            "Next": "b1p"
+                        },
+                        "b1p": {
+                            "Type": "Parallel",
+                            "Branches": [
+                                {
+                                    "StartAt": "b1pa",
+                                    "States": {
+                                        "b1pa": {
+                                            "Next": "b1pb"
+                                        },
+                                        "b1pb": {
+                                            "End": true
+                                        }
+                                    }
+                                },
+                                {
+                                    "StartAt": "b2pa",
+                                    "States": {
+                                        "b2pa": {
+                                            "Next": "b2pb"
+                                        },
+                                        "b2pb": {
+                                            "End": true
+                                        }
+                                    }
+                                }
+                            ],
                             "Next": "b1b"
                         },
                         "b1b": {
