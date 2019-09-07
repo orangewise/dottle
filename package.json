@@ -1,6 +1,6 @@
 {
   "name": "dottle",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "AWS State Language to Graphviz DOT language",
   "bin": "index.js",
   "main": "index.js",
