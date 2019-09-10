@@ -4,11 +4,6 @@ import test from 'ava';
 import { readOne } from '..';
 import styles from '../lib/styles';
 
-const {
-    digraph:digraphStyles,
-    subgraph:subgraphStyles
-} = styles;
-
 const fixtures = {
     basic: JSON.stringify(require('./fixtures/basic')),
     parallel: JSON.stringify(require('./fixtures/parallel')),
@@ -19,7 +14,7 @@ test('basic', async t => {
 
     const expected =
         `digraph {
-            ${digraphStyles}
+            ${styles.digraph}
             start -> a;
             a -> b;
             b -> c;
@@ -37,12 +32,12 @@ test('parallel', async t => {
 
     const expected =
         `digraph {
-            ${digraphStyles}
+            ${styles.digraph}
             start -> a;
             subgraph cluster_b {
-                ${subgraphStyles}
+                ${styles.subgraph}
                 subgraph cluster_b1p {
-                    ${subgraphStyles}
+                    ${styles.subgraph}
                     b1pa -> b1pb;
                     b2pa -> b2pb;
                 }
@@ -68,7 +63,7 @@ test('catch', async t => {
 
     const expected =
         `digraph {
-            ${digraphStyles}
+            ${styles.digraph}
             start -> a;
             a -> b;
             b -> d;
