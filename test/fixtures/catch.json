@@ -19,7 +19,7 @@
             "End": true
         },
         "d": {
-            "End": true
+            "Next": "e"
         },
         "e": {
             "End": true

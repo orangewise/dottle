@@ -67,7 +67,8 @@ test('catch', async t => {
             start -> a;
             a -> b;
             b -> d;
-            d -> end;
+            d -> e;
+            e -> end;
             b -> e;
             e -> end;
             b -> c;
