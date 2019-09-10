@@ -1,0 +1,28 @@
+{
+    "StartAt": "a",
+    "States": {
+        "a": {
+            "Next": "b"
+        },
+        "b": {
+            "Catch": [
+                {
+                    "Next": "d"
+                },
+                {
+                    "Next": "e"
+                }
+            ],
+            "Next": "c"
+        },
+        "c": {
+            "End": true
+        },
+        "d": {
+            "End": true
+        },
+        "e": {
+            "End": true
+        }
+    }
+}

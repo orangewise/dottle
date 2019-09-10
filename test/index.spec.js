@@ -11,7 +11,8 @@ const {
 
 const fixtures = {
     basic: JSON.stringify(require('./fixtures/basic')),
-    parallel: JSON.stringify(require('./fixtures/parallel'))
+    parallel: JSON.stringify(require('./fixtures/parallel')),
+    catch: JSON.stringify(require('./fixtures/catch'))
 };
 
 test('basic', async t => {
@@ -59,6 +60,26 @@ test('parallel', async t => {
         }`.replace(/\s+/g, ' ');
 
     const result = await readOne(fixtures.parallel);
+
+    t.deepEqual(result, expected);
+});
+
+test('catch', async t => {
+
+    const expected =
+        `digraph {
+            ${digraphStyles}
+            start -> a;
+            a -> b;
+            b -> d;
+            d -> end;
+            b -> e;
+            e -> end;
+            b -> c;
+            c -> end;
+        }`.replace(/\s+/g, ' ');
+
+    const result = await readOne(fixtures.catch);
 
     t.deepEqual(result, expected);
 });
