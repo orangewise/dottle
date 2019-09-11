@@ -34,21 +34,21 @@ test('parallel', async t => {
         `digraph {
             ${styles.digraph}
             start -> a;
+            a -> b1a;
+            a -> b2a;
             subgraph cluster_b {
                 ${styles.subgraph}
+                b1a -> b1pa;
+                b1a -> b2pa;
                 subgraph cluster_b1p {
                     ${styles.subgraph}
                     b1pa -> b1pb;
                     b2pa -> b2pb;
                 }
-                b1a -> b1pa;
-                b1a -> b2pa;
                 b1pb -> b1b;
                 b2pb -> b1b;
                 b2a -> b2b;
             }
-            a -> b1a;
-            a -> b2a;
             b1b -> c;
             b2b -> c;
             c -> end;
@@ -90,9 +90,9 @@ test('catch', async t => {
             d -> e;
             e -> end;
             b -> e;
-            e -> end;
             b -> c;
             c -> end;
+            e -> end;
         }`.replace(/\s+/g, ' ');
 
     const result = await readOne(fixtures.catch);
