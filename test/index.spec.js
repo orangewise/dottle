@@ -53,7 +53,27 @@ test('parallel', async t => {
             b2b -> c;
             c -> end;
         }`.replace(/\s+/g, ' ');
-
+    //const expected =
+        //`digraph {
+            //${styles.digraph}
+            //start -> a;
+            //b -> b1a;
+            //b -> b2a;
+            //subgraph cluster_b {
+                //${styles.subgraph}
+                //subgraph cluster_b1p {
+                    //${styles.subgraph}
+                    //b1pa -> b1pb;
+                    //b1pb -> end;
+                    //b2pa -> b2pb;
+                    //b2pb -> end;
+                //}
+                //b1p -> b1pa;
+                //b1p -> b2pa;
+                //b2a -> b2b;
+                //b2b -> end;
+            //}
+        //}`.replace(/\s+/g, ' ');
     const result = await readOne(fixtures.parallel);
 
     t.deepEqual(result, expected);
