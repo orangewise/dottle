@@ -28,7 +28,7 @@ test('basic', async t => {
     t.deepEqual(result, expected);
 });
 
-test('parallel', async t => {
+test.only('parallel', async t => {
 
     const expected =
         `digraph {
@@ -43,14 +43,14 @@ test('parallel', async t => {
                 subgraph cluster_b1p {
                     ${styles.subgraph}
                     b1pa -> b1pb;
+                    b1pb -> b1b;
                     b2pa -> b2pb;
+                    b2pb -> b1b;
                 }
-                b1pb -> b1b;
-                b2pb -> b1b;
                 b2a -> b2b;
+                b2b -> c;
             }
             b1b -> c;
-            b2b -> c;
             c -> end;
         }`.replace(/\s+/g, ' ');
     //const expected =
@@ -90,9 +90,9 @@ test('catch', async t => {
             d -> e;
             e -> end;
             b -> e;
+            e -> end;
             b -> c;
             c -> end;
-            e -> end;
         }`.replace(/\s+/g, ' ');
 
     const result = await readOne(fixtures.catch);
