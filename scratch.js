@@ -2,6 +2,24 @@ const { EOL } = require('os');
 const { inspect } = require('util');
 const log = v => console.log(inspect(v, { depth: null, colors:true }));
 
+const styles = require('./lib/styles');
+
+const emitDigraph = edges => [
+    'digraph {',
+    styles.digraph,
+    ...edges.flat(),
+    '}'
+];
+
+const emitSubgraph = (name, edges) => [
+    `subgraph cluster_${name} {`,
+    styles.subgraph,
+    ...edges.flat(),
+    '}'
+];
+
+const emitEdge = (a, b) => `${a} -> ${b};`;
+
 const machine = {
     "StartAt": "a",
     "States": {
@@ -70,56 +88,51 @@ const machine = {
     }
 };
 
+function edge(a, b) {
+    return {
+        type: 'edge',
+        points: [ a, b ]
+    };
+}
+
 function walk(States, StartAt, EndAt) {
     const current = States[StartAt];
     if (current) {
         if (current.Type === 'Parallel') {
             return current.Branches.map(Branch => ({
                 type: 'branch',
+                name: StartAt,
                 edges: [
-                    {
-                        type: 'edge',
-                        points: [ StartAt, Branch.StartAt ]
-                    },
-                    ...walk(Branch, Branch.StartAt, current.Next)
+                    edge(StartAt, Branch.StartAt),
+                    ...walk(Branch.States, Branch.StartAt, current.Next)
                 ]
             }));
         }
         if (current.Next) return [
-            {
-                type: 'edge',
-                points: [ StartAt, current.Next ]
-            },
+            edge(StartAt, current.Next),
             ...walk(States, current.Next, EndAt)
         ];
         if (current.End) return [
-            {
-                type: 'edge',
-                points: [ StartAt, EndAt ]
-            }
+            edge(StartAt, EndAt)
         ];
     } else {
         return [];
     }
 }
 
-function emit(dots) {
-    return dots;
-    return `${dots.map(edge =>
-        edge.join('->')
-    ).join(`;${EOL}`)};${EOL}`;
+function emit(dot) {
+    if (Array.isArray(dot)) return dot.map(emit);
+    if (dot.type === 'edge') return emitEdge(...dot.points);
+    if (dot.type === 'branch') return emitSubgraph(dot.name, dot.edges.map(emit));
 }
 
-function branch(machine, InitialStartAt, EndAt) {
+function Emit(machine, InitialStartAt, EndAt) {
     const { StartAt, States } = machine;
     const dots = [
-        {
-            type: 'edge',
-            points: [ InitialStartAt, StartAt ]
-        },
+        edge(InitialStartAt, StartAt),
         ...walk(States, StartAt, EndAt)
     ];
-    return emit(dots);
+    return emitDigraph(emit(dots)).join(EOL);
 }
 
-log(branch(machine, 'start', 'end'));
+log(Emit(machine, 'start', 'end'));
