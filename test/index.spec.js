@@ -34,25 +34,26 @@ test('parallel', async t => {
     const expected = `digraph {
         ${styles.digraph}
         start -> a;
+        a -> b1a;
+        a -> b2a;
         subgraph cluster_b {
             ${styles.subgraph}
-            a -> b1a;
+            b1a -> b1pa;
+            b1a -> b2pa;
             subgraph cluster_b1p {
                 ${styles.subgraph}
-                b1a -> b1pa;
                 b1pa -> b1pb;
                 b1pb -> b1b;
-                b1a -> b2pa;
                 b2pa -> b2pb;
                 b2pb -> b1b;
             }
             b1b -> c;
-            a -> b2a;
             b2a -> b2b;
             b2b -> c;
         }
         c -> end;
     }`.replace(/\s+/g, ' ');
+
     const result = await readOne(fixtures.parallel);
 
     t.deepEqual(result, expected);
