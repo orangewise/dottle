@@ -40,16 +40,16 @@ test('parallel', async t => {
                 ${styles.subgraph}
                 b1a -> b1pa;
                 b1pa -> b1pb;
+                b1pb -> b1b;
                 b1a -> b2pa;
                 b2pa -> b2pb;
+                b2pb -> b1b;
             }
-            b1pb -> b1b;
-            b2pb -> b1b;
+            b1b -> c;
             a -> b2a;
             b2a -> b2b;
+            b2b -> c;
         }
-        b1b -> c;
-        b2b -> c;
         c -> end;
     }`.replace(/\s+/g, ' ');
     const result = await readOne(fixtures.parallel);
