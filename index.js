@@ -2,7 +2,6 @@
 'use strict';
 
 const {
-    Reader,
     read,
     readToStream,
     readAll,

@@ -2,12 +2,13 @@
 
 import test from 'ava';
 import { readOne } from '..';
-import styles from '../lib/emitter/styles';
+import styles from '../lib/emit/styles';
 
 const fixtures = {
     basic: JSON.stringify(require('./fixtures/basic')),
     parallel: JSON.stringify(require('./fixtures/parallel')),
-    catch: JSON.stringify(require('./fixtures/catch'))
+    catch: JSON.stringify(require('./fixtures/catch')),
+    choice: JSON.stringify(require('./fixtures/choice'))
 };
 
 test('basic', async t => {
@@ -73,6 +74,26 @@ test('catch', async t => {
         }`.replace(/\s+/g, ' ');
 
     const result = await readOne(fixtures.catch);
+
+    t.deepEqual(result, expected);
+});
+
+test('choice', async t => {
+
+    const expected =
+        `digraph {
+            ${styles.digraph}
+            start -> a;
+            a -> b;
+            b -> d;
+            d -> end;
+            b -> e;
+            e -> end;
+            b -> c;
+            c -> end;
+        }`.replace(/\s+/g, ' ');
+
+    const result = await readOne(fixtures.choice);
 
     t.deepEqual(result, expected);
 });

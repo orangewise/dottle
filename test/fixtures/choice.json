@@ -1,0 +1,29 @@
+{
+    "StartAt": "a",
+    "States": {
+        "a": {
+            "Next": "b"
+        },
+        "b": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Next": "d"
+                },
+                {
+                    "Next": "e"
+                }
+            ],
+            "Default": "c"
+        },
+        "c": {
+            "End": true
+        },
+        "d": {
+            "End": true
+        },
+        "e": {
+            "End": true
+        }
+    }
+}
