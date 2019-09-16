@@ -43,14 +43,14 @@ test('parallel', async t => {
             subgraph cluster_b1p {
                 ${styles.subgraph}
                 b1pa -> b1pb;
-                b1pb -> b1b;
                 b2pa -> b2pb;
-                b2pb -> b1b;
             }
-            b1b -> c;
+            b1pb -> b1b;
+            b2pb -> b1b;
             b2a -> b2b;
-            b2b -> c;
         }
+        b1b -> c;
+        b2b -> c;
         c -> end;
     }`.replace(/\s+/g, ' ');
 
