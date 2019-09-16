@@ -14,7 +14,7 @@ const fixtures = {
 test('basic', async t => {
 
     const expected =
-        `digraph {
+        `strict digraph {
             ${styles.digraph}
             start -> a;
             a -> b;
@@ -31,7 +31,7 @@ test('basic', async t => {
 
 test('parallel', async t => {
 
-    const expected = `digraph {
+    const expected = `strict digraph {
         ${styles.digraph}
         start -> a;
         a -> b1a;
@@ -62,7 +62,7 @@ test('parallel', async t => {
 test('catch', async t => {
 
     const expected =
-        `digraph {
+        `strict digraph {
             ${styles.digraph}
             start -> a;
             a -> b;
@@ -82,7 +82,7 @@ test('catch', async t => {
 test('choice', async t => {
 
     const expected =
-        `digraph {
+        `strict digraph {
             ${styles.digraph}
             start -> a;
             a -> b;
