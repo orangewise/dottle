@@ -16,11 +16,11 @@ test('basic', async t => {
     const expected =
         `strict digraph {
             ${styles.digraph}
-            start -> a;
-            a -> b;
-            b -> c;
-            c -> d;
-            d -> end;
+            "start" -> "a";
+            "a" -> "b";
+            "b" -> "c";
+            "c" -> "d";
+            "d" -> "end";
 
         }`.replace(/\s+/g, ' ');
 
@@ -33,25 +33,25 @@ test('parallel', async t => {
 
     const expected = `strict digraph {
         ${styles.digraph}
-        start -> a;
-        a -> b1a;
-        a -> b2a;
-        subgraph cluster_b {
+        "start" -> "a";
+        "a" -> "b1a";
+        "a" -> "b2a";
+        subgraph "cluster_b" {
             ${styles.subgraph}
-            b1a -> b1pa;
-            b1a -> b2pa;
-            subgraph cluster_b1p {
+            "b1a" -> "b1pa";
+            "b1a" -> "b2pa";
+            subgraph "cluster_b1p" {
                 ${styles.subgraph}
-                b1pa -> b1pb;
-                b2pa -> b2pb;
+                "b1pa" -> "b1pb";
+                "b2pa" -> "b2pb";
             }
-            b1pb -> b1b;
-            b2pb -> b1b;
-            b2a -> b2b;
+            "b1pb" -> "b1b";
+            "b2pb" -> "b1b";
+            "b2a" -> "b2b";
         }
-        b1b -> c;
-        b2b -> c;
-        c -> end;
+        "b1b" -> "c";
+        "b2b" -> "c";
+        "c" -> "end";
     }`.replace(/\s+/g, ' ');
 
     const result = await readOne(fixtures.parallel);
@@ -64,14 +64,14 @@ test('catch', async t => {
     const expected =
         `strict digraph {
             ${styles.digraph}
-            start -> a;
-            a -> b;
-            b -> d;
-            d -> end;
-            b -> e;
-            e -> end;
-            b -> c;
-            c -> end;
+            "start" -> "a";
+            "a" -> "b";
+            "b" -> "d";
+            "d" -> "end";
+            "b" -> "e";
+            "e" -> "end";
+            "b" -> "c";
+            "c" -> "end";
         }`.replace(/\s+/g, ' ');
 
     const result = await readOne(fixtures.catch);
@@ -84,14 +84,14 @@ test('choice', async t => {
     const expected =
         `strict digraph {
             ${styles.digraph}
-            start -> a;
-            a -> b;
-            b -> d;
-            d -> end;
-            b -> e;
-            e -> end;
-            b -> c;
-            c -> end;
+            "start" -> "a";
+            "a" -> "b";
+            "b" -> "d";
+            "d" -> "end";
+            "b" -> "e";
+            "e" -> "end";
+            "b" -> "c";
+            "c" -> "end";
         }`.replace(/\s+/g, ' ');
 
     const result = await readOne(fixtures.choice);
