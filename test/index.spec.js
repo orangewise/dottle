@@ -2,7 +2,7 @@
 
 import test from 'ava';
 import { readOne } from '..';
-import styles from '../lib/emit/styles';
+import styles from '../lib/emitter/styles';
 
 const fixtures = {
     basic: JSON.stringify(require('./fixtures/basic')),
