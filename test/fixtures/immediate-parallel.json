@@ -1,0 +1,47 @@
+{
+  "StartAt": "bump_0",
+  "States": {
+    "bump_0": {
+      "Type": "Parallel",
+      "Branches": [
+        {
+          "StartAt": "npm.version",
+          "States": {
+            "npm.version": {
+              "Type": "Task",
+              "Resource": "npm.version",
+              "Next": "git.push"
+            },
+            "git.push": {
+              "Type": "Task",
+              "Resource": "git.push",
+              "Next": "git.push_0"
+            },
+            "git.push_0": {
+              "Type": "Task",
+              "Parameters": {
+                "push": {
+                  "tags": true
+                }
+              },
+              "Resource": "git.push",
+              "Next": "npm.publish"
+            },
+            "npm.publish": {
+              "Type": "Task",
+              "Parameters": {
+                "publish": {
+                  "access": "public"
+                }
+              },
+              "Resource": "npm.publish",
+              "End": true
+            }
+          }
+        }
+      ],
+      "OutputPath": "$.0[-1:]",
+      "End": true
+    }
+  }
+}

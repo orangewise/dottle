@@ -8,7 +8,8 @@ const fixtures = {
     basic: JSON.stringify(require('./fixtures/basic')),
     parallel: JSON.stringify(require('./fixtures/parallel')),
     catch: JSON.stringify(require('./fixtures/catch')),
-    choice: JSON.stringify(require('./fixtures/choice'))
+    choice: JSON.stringify(require('./fixtures/choice')),
+    immediateParallel: JSON.stringify(require('./fixtures/immediate-parallel'))
 };
 
 test('basic', async t => {
@@ -95,6 +96,36 @@ test('choice', async t => {
         }`.replace(/\s+/g, ' ');
 
     const result = await readOne(fixtures.choice);
+
+    t.deepEqual(result, expected);
+});
+
+test.only('immediate parallel', async t => {
+
+    const expected = `strict digraph {
+        ${styles.digraph}
+        "start" -> "a";
+        "a" -> "b1a";
+        "a" -> "b2a";
+        subgraph "cluster_b" {
+            ${styles.subgraph}
+            "b1a" -> "b1pa";
+            "b1a" -> "b2pa";
+            subgraph "cluster_b1p" {
+                ${styles.subgraph}
+                "b1pa" -> "b1pb";
+                "b2pa" -> "b2pb";
+            }
+            "b1pb" -> "b1b";
+            "b2pb" -> "b1b";
+            "b2a" -> "b2b";
+        }
+        "b1b" -> "c";
+        "b2b" -> "c";
+        "c" -> "end";
+    }`.replace(/\s+/g, ' ');
+
+    const result = await readOne(fixtures.immediateParallel);
 
     t.deepEqual(result, expected);
 });
