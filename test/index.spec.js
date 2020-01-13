@@ -7,6 +7,7 @@ import styles from '../lib/emitter/styles';
 const fixtures = {
     basic: JSON.stringify(require('./fixtures/basic')),
     parallel: JSON.stringify(require('./fixtures/parallel')),
+    parallelBasic: JSON.stringify(require('./fixtures/parallel_basic')),
     catch: JSON.stringify(require('./fixtures/catch')),
     choice: JSON.stringify(require('./fixtures/choice'))
 };
@@ -55,6 +56,24 @@ test('parallel', async t => {
     }`.replace(/\s+/g, ' ');
 
     const result = await readOne(fixtures.parallel);
+
+    t.deepEqual(result, expected);
+});
+
+test('parallel - basic', async t => {
+
+    const expected = `strict digraph {
+        ${styles.digraph}
+        "start" -> "foo_0";
+        "start" -> "bar_0";
+        subgraph "cluster_parallel_0" {
+            ${styles.subgraph}
+        }
+        "foo_0" -> "end";
+        "bar_0" -> "end";
+    }`.replace(/\s+/g, ' ');
+
+    const result = await readOne(fixtures.parallelBasic);
 
     t.deepEqual(result, expected);
 });

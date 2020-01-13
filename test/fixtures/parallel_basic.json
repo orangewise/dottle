@@ -1,0 +1,33 @@
+{
+  "StartAt": "parallel_0",
+  "States": {
+    "parallel_0": {
+      "Type": "Parallel",
+      "Branches": [
+        {
+          "StartAt": "foo_0",
+          "States": {
+            "foo_0": {
+              "Type": "Task",
+              "Parameters": [],
+              "Resource": "foo",
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "bar_0",
+          "States": {
+            "bar_0": {
+              "Type": "Task",
+              "Parameters": [],
+              "Resource": "bar",
+              "End": true
+            }
+          }
+        }
+      ],
+      "End": true
+    }
+  }
+}
