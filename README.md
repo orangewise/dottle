@@ -1,6 +1,15 @@
-# Dottle
+# @robodo/Dottle
 
-> AWS State Language to Graphviz DOT language 
+Drop-in replacement for [Dottle](https://www.npmjs.com/package/dottle), works on node versions below 11.
+
+> AWS State Language
+to Graphviz DOT language
+
+# Install
+
+```bash
+npm i @robodo/dottle
+```
 
 # API
 

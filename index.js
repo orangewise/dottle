@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+require('array-flat-polyfill');
+
 const {
     read,
     readToStream,
